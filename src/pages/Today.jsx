@@ -1,35 +1,34 @@
-import React, { useState, useEffect } from "react";
-import TodoInput from "../components/TodoInput";
-import TodoList from "../components/TodoList";
+import React, { useState } from "react";
+import TodoInput from "../components/Today/TodoInput";
+import TodoList from "../components/Today/TodoList";
 import { StyleSection } from "../core/Section";
-import { styled } from "styled-components";
+import { formattedDate } from "../core/formattedDate";
+import FilterListButtons from "../components/Today/FilterListButtons";
 
-export default function Today({ todos, todoAdd, todoDelete }) {
+
+export default function Today({ todos, todoAdd, todoDelete, todoChecked, todoModify }) {
+  const [date, setDate] = useState(formattedDate(new Date()));
+  const [filter, setFilter] = useState("All");
+  const filterHandler = (str) => {
+    setFilter(str);
+  };
+    
   return (
     <StyleSection>
-      <TodoList todos={todos} todoDelete={todoDelete} />
+      {todos[date]?.length ? (
+        <FilterListButtons filter={filter} filterHandler={filterHandler} />
+      ) : (
+        ""
+      )}
+      <TodoList
+        todos={todos}
+        todoDelete={todoDelete}
+        filter={filter}
+        todoChecked={todoChecked}
+        date={date}
+        todoModify={todoModify}
+      />
       <TodoInput todoAdd={todoAdd} />
     </StyleSection>
   );
 }
-
-//   const [time, setTime] = useState(0);
-//   const [timer, setTimer] = useState(null);
-
-//   const timeStart = () => {
-//     const newTimer = setInterval(() => {
-//       setTime((prevTime) => prevTime + 1);
-//     }, 1000);
-//     setTimer(newTimer);
-//   };
-
-//   const timeStop = () => {
-//     clearInterval(timer);
-//     setTimer(null);
-//   };
-
-//   useEffect(() => {
-//     return () => {
-//       clearInterval(timer);
-//     };
-//   }, [timer]);

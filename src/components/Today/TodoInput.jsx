@@ -2,11 +2,11 @@ import React from "react";
 import { styled } from "styled-components";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { formattedDate } from "../core/formattedDate";
+import { formattedDate } from "../../core/formattedDate";
 const StyleForm = styled.form`
   position: absolute;
-  bottom: 35px;
-  width: 1300px;
+  bottom: 88px;
+  width: calc(100% - 140px);
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -15,39 +15,30 @@ const StyleForm = styled.form`
   align-items: center;
   gap: 20px;
   input {
-    width: 1300px;
-    height: 125px;
+    width: 100%;
+    height: 80px;
     border: 1px solid var(--light-border);
     font-size: 23px;
     padding-left: 20px;
     transition: 0.2s;
     border-radius: 5px;
-    transform: translate(0, 45px);
+    position: relative;
   }
   label {
     font-size: 25px;
     position: absolute;
-    top: 50px;
+    top: 27px;
     left: 20px;
     color: #727272;
     background-color: white;
     border-radius: 10px;
     transition: all.2s;
     padding: 0 5px;
-    transform: translate(0, 45px);
   }
+
+  input:valid,
   input:focus {
     border: 1px solid var(--active-color);
-  }
-  input:focus + label {
-    color: var(--active-color);
-  }
-  input:valid + label {
-    transform: none;
-  }
-  input:valid {
-    transform: none;
-    height: 80px;
   }
   input:focus + label,
   input:valid + label {
@@ -59,13 +50,14 @@ const StyleForm = styled.form`
   button {
     cursor: pointer;
     border-radius: 5px;
-    opacity: 0;
+    opacity: 0.7;
     transition: all.2s;
     background-color: var(--active-color);
     font-size: 22px;
     color: white;
     width: 100%;
     padding: 20px;
+    height: 60px;
   }
   button.active {
     opacity: 1;
@@ -73,6 +65,8 @@ const StyleForm = styled.form`
 `;
 
 export default function TodoInput({ todoAdd }) {
+  console.log("TodoInput실행");
+
   const [text, setText] = useState("");
   const inputTextHandler = (e) => {
     setText(e.target.value);
@@ -81,16 +75,20 @@ export default function TodoInput({ todoAdd }) {
     e.preventDefault();
     const uuid = uuidv4();
 
-    todoAdd({ id: uuid, text, date: formattedDate(), checked: false });
+    todoAdd({ id: uuid, text, date: formattedDate(new Date()), checked: false });
     setText("");
   };
-
   return (
     <StyleForm onSubmit={onSubmitHandler}>
-      <div>
-        <input onChange={inputTextHandler} value={text} type="text" id="todo" required=" " />
-        <label htmlFor="todo">To do</label>
-      </div>
+      <input
+        onChange={inputTextHandler}
+        value={text}
+        type="text"
+        id="todo"
+        required=" "
+        maxLength={40}
+      />
+      <label htmlFor="todo">To do</label>
       <button className={text !== "" ? "active" : ""}>등록</button>
     </StyleForm>
   );

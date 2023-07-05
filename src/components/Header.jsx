@@ -1,74 +1,82 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "../core/Button";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AiOutlineFire } from "react-icons/ai";
 import { IoTodayOutline } from "react-icons/io5";
 import { BsGraphUp } from "react-icons/bs";
+import Timer from "./Today/Timer";
 
-const StyleHeader = styled.header`
-  padding: 3rem;
-  background-color: var(--light-grey-color);
+const HeaderButton = styled.button`
+  cursor: pointer;
+  font-size: 1.9rem;
+  display: flex;
+  transition: 0.1s;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border-radius: 3px;
+  padding-left: 20px;
+  span {
+    padding-top: 3px;
+  }
+  &.active {
+    background-color: var(--active-color);
+    color: white;
+  }
+  width: 21rem;
+  height: 6rem;
+  color: white;
+  font-weight: bold;
+`;
+
+const HeaderContainer = styled.header`
+  padding: 6rem 0;
   width: 30rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 5rem;
+  gap: 10rem;
+  flex-direction: column;
+  justify-content: space-around;
+  color: white;
+
   h1 {
     text-align: start;
     font-size: 3rem;
     font-weight: 400;
-    color: black;
+    color: #ffffff;
+    letter-spacing: 2px;
+  }
+
+  .listButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 `;
-const StyleButton = styled(Button)`
-  width: 30rem;
-  height: 8rem;
-`;
+
+const menuList = [
+  { text: "오늘", icon: AiOutlineFire, link: "/" },
+  { text: "과거", icon: IoTodayOutline, link: "/past" },
+  { text: "통계", icon: BsGraphUp, link: "/statistics" },
+];
 
 export default function Header() {
-  const [list, setList] = useState([
-    { text: "오늘", active: true, icon: AiOutlineFire, link: "/" },
-    { text: "과거", active: false, icon: IoTodayOutline, link: "/past" },
-    { text: "통계", active: false, icon: BsGraphUp, link: "/statistics" },
-  ]);
-
-  const listHandler = (item) => {
-    setList((prevList) =>
-      prevList.map((el) =>
-        el.text === item.text ? { ...el, active: true } : { ...el, active: false }
-      )
-    );
-  };
-
-  useEffect(() => {
-    const pathname = window.location.pathname;
-    setList((prevList) =>
-      prevList.map((el) => {
-        if (el.link === pathname) {
-          return { ...el, active: true };
-        } else {
-          return { ...el, active: false };
-        }
-      })
-    );
-  }, []);
+  const location = useLocation();
 
   return (
-    <StyleHeader>
+    <HeaderContainer>
       <h1>Smart Study</h1>
-
       <div className="listButtons">
-        {list.map((item, index) => (
+        {menuList.map((item, index) => (
           <Link to={item.link} key={index}>
-            <StyleButton active={item.active.toString()} onClick={() => listHandler(item)}>
-              {<item.icon />}
+            <HeaderButton className={location.pathname === item.link ? "active" : ""}>
+              <item.icon />
               <span>{item.text}</span>
-            </StyleButton>
+            </HeaderButton>
           </Link>
         ))}
       </div>
-    </StyleHeader>
+      <Timer />
+    </HeaderContainer>
   );
 }
