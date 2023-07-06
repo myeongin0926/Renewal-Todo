@@ -5,14 +5,12 @@ import { StyleSection } from "../core/Section";
 import { formattedDate } from "../core/formattedDate";
 import FilterListButtons from "../components/Today/FilterListButtons";
 
-
 export default function Today({ todos, todoAdd, todoDelete, todoChecked, todoModify }) {
   const [date, setDate] = useState(formattedDate(new Date()));
   const [filter, setFilter] = useState("All");
   const filterHandler = (str) => {
     setFilter(str);
   };
-    
   return (
     <StyleSection>
       {todos[date]?.length ? (

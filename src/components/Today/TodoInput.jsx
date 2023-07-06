@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { formattedDate } from "../../core/formattedDate";
 const StyleForm = styled.form`
   position: absolute;
-  bottom: 88px;
+  bottom: 80px;
   width: calc(100% - 140px);
   left: 0;
   right: 0;
@@ -57,7 +57,7 @@ const StyleForm = styled.form`
     color: white;
     width: 100%;
     padding: 20px;
-    height: 60px;
+    height: 70px;
   }
   button.active {
     opacity: 1;

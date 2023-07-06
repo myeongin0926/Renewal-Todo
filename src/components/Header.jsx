@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineFire } from "react-icons/ai";
 import { IoTodayOutline } from "react-icons/io5";
-import { BsGraphUp } from "react-icons/bs";
-import Timer from "./Today/Timer";
 
 const HeaderButton = styled.button`
   cursor: pointer;
@@ -23,25 +21,24 @@ const HeaderButton = styled.button`
     background-color: var(--active-color);
     color: white;
   }
-  width: 21rem;
+  width: 25rem;
   height: 6rem;
   color: white;
   font-weight: bold;
 `;
 
 const HeaderContainer = styled.header`
-  padding: 6rem 0;
+  padding: 11rem 0 0 2rem;
   width: 30rem;
   display: flex;
   align-items: center;
-  gap: 10rem;
+  gap: 12rem;
   flex-direction: column;
-  justify-content: space-around;
   color: white;
 
   h1 {
     text-align: start;
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: 400;
     color: #ffffff;
     letter-spacing: 2px;
@@ -57,12 +54,10 @@ const HeaderContainer = styled.header`
 const menuList = [
   { text: "오늘", icon: AiOutlineFire, link: "/" },
   { text: "과거", icon: IoTodayOutline, link: "/past" },
-  { text: "통계", icon: BsGraphUp, link: "/statistics" },
 ];
 
 export default function Header() {
   const location = useLocation();
-
   return (
     <HeaderContainer>
       <h1>Smart Study</h1>
@@ -76,7 +71,6 @@ export default function Header() {
           </Link>
         ))}
       </div>
-      <Timer />
     </HeaderContainer>
   );
 }

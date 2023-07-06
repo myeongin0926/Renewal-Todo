@@ -5,9 +5,9 @@ import { StyleWarning } from "../../core/Warning";
 import { AiOutlineFire } from "react-icons/ai";
 
 const TodoContainer = styled.div`
-  height: 51vh;
-  padding-top: 50px;
+  height: 58%;
   overflow: auto;
+  margin-top: 45px;
   ul {
     display: flex;
     flex-wrap: wrap;

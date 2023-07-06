@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import Statistics from "./pages/Statistics";
 import Past from "./pages/Past";
 import Today from "./pages/Today";
 
@@ -18,7 +17,6 @@ const RowDiv = styled.div`
 
 export default function App() {
   const [todos, setTodos] = useState({});
-  console.log("App실행");
 
   useEffect(() => {
     const storedTodos = localStorage.getItem("todos");
@@ -50,7 +48,7 @@ export default function App() {
       };
     });
   };
-  
+
   const todoTextModify = (item, text) => {
     setTodos((prevTodos) => {
       const key = item.date;
@@ -91,7 +89,6 @@ export default function App() {
               }
             />
             <Route path="/past" element={<Past />} />
-            <Route path="/statistics" element={<Statistics />} />
           </Routes>
         </div>
       </RowDiv>

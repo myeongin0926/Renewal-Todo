@@ -14,7 +14,7 @@ const TodoItemContainer = styled.li`
   gap: 15px;
   flex-direction: column;
   border: 1px solid var(--light-border);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   cursor: pointer;
   transition: all 0.2s;
   position: relative;
@@ -92,7 +92,7 @@ export default function TodoItem({ todo, todoDelete, todoChecked, todoModify }) 
   const [modify, setModify] = useState(false);
   const [text, setText] = useState(todo.text);
   const inputRef = useRef(null);
-  console.log('TodoItem실행')
+  console.log("TodoItem실행");
   useEffect(() => {
     if (modify) {
       inputRef.current.focus();
