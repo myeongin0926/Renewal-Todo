@@ -17,7 +17,6 @@ const TodoContainer = styled.div`
 `;
 
 export default function TodoList({ todos, todoDelete, todoChecked, date, filter, todoModify }) {
-  console.log("TodoList 실행");
   let filteredTodos = todos[date];
   if (filter === "Completed") {
     filteredTodos = filteredTodos.filter((el) => el.checked === true);

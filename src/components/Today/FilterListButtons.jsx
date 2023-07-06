@@ -9,6 +9,7 @@ const StyleButtons = styled.div`
   border-radius: 3px;
   overflow: hidden;
   border: 1px solid var(--light-border);
+  box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.1);
   button {
     font-size: 20px;
     flex: 1;

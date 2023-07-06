@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Past from "./pages/Past";
 import Today from "./pages/Today";
-
+import { formattedDate } from "./core/formattedDate";
 const RowDiv = styled.div`
   display: flex;
   height: 100vh;
@@ -23,7 +23,16 @@ export default function App() {
     if (storedTodos) {
       setTodos(JSON.parse(storedTodos));
     } else {
-      setTodos({});
+      setTodos({
+        [formattedDate(new Date())]: [
+          {
+            id: "hello",
+            text: "환영합니다! 당신의 일상을 기록하세요",
+            date: formattedDate(new Date()),
+            checked: false,
+          },
+        ],
+      });
     }
   }, []);
 
@@ -88,7 +97,7 @@ export default function App() {
                 />
               }
             />
-            <Route path="/past" element={<Past />} />
+            <Route path="/past" element={<Past todos={todos} />} />
           </Routes>
         </div>
       </RowDiv>

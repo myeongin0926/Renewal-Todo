@@ -23,6 +23,7 @@ const StyleForm = styled.form`
     transition: 0.2s;
     border-radius: 5px;
     position: relative;
+    box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.1);
   }
   label {
     font-size: 25px;
@@ -50,22 +51,22 @@ const StyleForm = styled.form`
   button {
     cursor: pointer;
     border-radius: 5px;
-    opacity: 0.7;
     transition: all.2s;
     background-color: var(--active-color);
+    /* opacity: 0.7; */
     font-size: 22px;
     color: white;
     width: 100%;
     padding: 20px;
     height: 70px;
+    box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.1);
   }
-  button.active {
+  /* button.active {
     opacity: 1;
-  }
+  } */
 `;
 
 export default function TodoInput({ todoAdd }) {
-  console.log("TodoInput실행");
 
   const [text, setText] = useState("");
   const inputTextHandler = (e) => {

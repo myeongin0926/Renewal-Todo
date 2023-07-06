@@ -9,7 +9,7 @@ const TodoItemContainer = styled.li`
   padding: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border-radius: 3px;
   gap: 15px;
   flex-direction: column;
@@ -18,6 +18,7 @@ const TodoItemContainer = styled.li`
   cursor: pointer;
   transition: all 0.2s;
   position: relative;
+  background-color: #ff6b6b36;
 
   input {
     display: none;
@@ -25,15 +26,20 @@ const TodoItemContainer = styled.li`
 
   span {
     font-size: 18px;
-    flex: auto 0.6;
     padding: 0 1rem;
   }
 
   .postIcons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 30px;
     width: 100%;
-
+    position: absolute;
+    left: 91%;
+    flex-direction: column;
+    label {
+      margin-bottom: 50px;
+    }
     label,
     button {
       opacity: 0.5;
@@ -50,25 +56,29 @@ const TodoItemContainer = styled.li`
   }
 
   &.complete {
-    label {
-      background-color: #4dff4d;
-      color: white;
-      opacity: 1;
-      border-radius: 3px;
-    }
+    background-color: #ff6b6b20;
+    opacity: 0.7;
+    border: none;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1) inset;
   }
-
+  &.complete:hover {
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1) inset;
+  }
+  &.complete button {
+    opacity: 0;
+  }
+  &.complete button:hover {
+    opacity: 0;
+  }
   &:hover {
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const ModifyBox = styled.form`
-  height: 100px;
+  height: 90px;
   top: 0;
-  background-color: #ffffff;
-  flex: 0.7;
-
+  margin-top: 45px;
   input {
     display: block;
     width: 300px;
@@ -81,7 +91,7 @@ const ModifyBox = styled.form`
 
   button {
     width: 300px;
-    height: 50px;
+    height: 40px;
     margin-top: 10px;
     background-color: var(--active-color);
     color: white;
@@ -92,7 +102,6 @@ export default function TodoItem({ todo, todoDelete, todoChecked, todoModify }) 
   const [modify, setModify] = useState(false);
   const [text, setText] = useState(todo.text);
   const inputRef = useRef(null);
-  console.log("TodoItem실행");
   useEffect(() => {
     if (modify) {
       inputRef.current.focus();
@@ -119,17 +128,20 @@ export default function TodoItem({ todo, todoDelete, todoChecked, todoModify }) 
           id={todo.id}
           onChange={() => todoChecked(todo)}
         />
-        <label htmlFor={todo.id}>
-          <AiOutlineCheck size={27} />
-        </label>
+
         {!modify && (
-          <button onClick={() => setModify(true)}>
-            <GoPencil size={27} />
-          </button>
+          <>
+            <label htmlFor={todo.id}>
+              <AiOutlineCheck size={27} />
+            </label>
+            <button onClick={() => setModify(true)}>
+              <GoPencil size={27} />
+            </button>
+            <button onClick={() => todoDelete(todo)}>
+              <AiOutlineDelete size={27} />
+            </button>
+          </>
         )}
-        <button onClick={() => todoDelete(todo)}>
-          <AiOutlineDelete size={27} />
-        </button>
       </div>
       {!modify ? (
         <span>{text}</span>
